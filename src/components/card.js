@@ -73,7 +73,7 @@ export default function Card({
                 {
                     comments.map((comment) => {
                         return (
-                            <p className="text-neutral m-1">{comment.comment}</p>
+                            <p key={comment} className="text-neutral m-1">{comment.comment}</p>
                         )
                     }
                     )
