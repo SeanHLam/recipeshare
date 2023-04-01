@@ -9,8 +9,8 @@ export const authOptions = {
   adapter: PrismaAdapter(prisma),
   providers: [
     GithubProvider({
-      clientId: process.env.GITHUB_ID,
-      clientSecret: process.env.GITHUB_SECRET,
+      clientId: process.env.GITHUB_CLIENT_ID,
+      clientSecret: process.env.GITHUB_CLIENT_SECRET,
     }),
  
     // ...add more providers here
@@ -18,7 +18,8 @@ export const authOptions = {
   callbacks: {
     async signIn(user, account, profile) {
       return '/home';
-    }
+    },
+  
   },
 
 }
