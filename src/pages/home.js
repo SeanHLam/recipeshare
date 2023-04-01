@@ -13,15 +13,46 @@ import Card from "@/components/card";
 import { use } from "react";
 import { useState, useEffect } from "react";
 
-export default function Home({ recipes, session, users, likes, comments }) {
+export default function Home({ recipes, users, likes, comments }) {
   const [showPopup, setShowPopup] = useState(false);
- const [recipeTitle, setRecipeTitle] = useState("New Recipe");
-
+  const [recipeTitle, setRecipeTitle] = useState("New Recipe");
+  const [ingredients, setIngredients] = useState("Ingredients");
+  const [instructions, setInstructions] = useState("Instructions");
+  const [userId, setUserId] = useState("");
+  const { data: session, status } = useSession();
+  console.log(session);
   const openRecipe = () => {
     setShowPopup(!showPopup);
   };
 
-  const handleRecipe = () => {};
+  useEffect(() => {
+    if (session) {
+        users.find((user) => {
+            if (user.name === session.user.name) {
+                setUserId(user.id);
+            }
+          });
+    }
+    }, [session]);
+
+  
+
+  const handleRecipe = async (e) => {
+    e.preventDefault();
+    openRecipe();
+
+    const res = await axios.post("/api/recipes", {
+      title: recipeTitle,
+      ingredients: ingredients,
+      steps: instructions,
+      userId:  userId,
+      updatedAt: new Date("2020-03-19T14:21:00+0200"),
+    });
+
+    setRecipeTitle("");
+    setIngredients("");
+    setInstructions("");
+  };
 
   return (
     <>
@@ -40,7 +71,7 @@ export default function Home({ recipes, session, users, likes, comments }) {
 
         {showPopup ? (
           <div className=" fixed top-0 left-0 w-full h-full flex justify-center items-center bg-black bg-opacity-50">
-            <div className="bg-base-100 w-full  p-4 flex flex-col justify-center items-center">
+            <div className="bg-base-100   p-4 flex flex-col justify-center items-center">
               <button
                 onClick={openRecipe}
                 className="flex justify-end mr-4 w-full  "
@@ -60,18 +91,34 @@ export default function Home({ recipes, session, users, likes, comments }) {
                 </svg>
               </button>
               <h1 className="text-6xl mb-2  text-neutral font-bold">
-               {recipeTitle}
+                New Recipe
               </h1>
-              <div className="flex flex-col w-1/2">
-                <label className="text-neutral">Title</label>
-                <input className="input input-bordered" type="text" />
-                <label className="text-neutral">Description</label>
-                <input className="input input-bordered" type="text" />
-                <label className="text-neutral">Steps</label>
-                <input className="input input-bordered" type="text" />
-                <label className="text-neutral">Ingredients</label>
-                <input className="input input-bordered" type="text" />
-                <RecButt onClick={handleRecipe} text="Add"></RecButt>
+              <div className="flex justify-center w-full">
+                <form className="flex flex-col w-1/2">
+                  <label className="text-neutral">Title</label>
+                  <input
+                    value={recipeTitle}
+                    onChange={(e) => setRecipeTitle(e.target.value)}
+                    className="input text-neutral input-bordered"
+                    type="text"
+                  />
+                  <label className="text-neutral">Ingredients</label>
+                  <textarea
+                    value={ingredients}
+                    onChange={(e) => setIngredients(e.target.value)}
+                    className=" input text-neutral input-bordered"
+                    type="text"
+                  />
+                  <label className="text-neutral">Steps</label>
+                  <textarea
+                    value={instructions}
+                    onChange={(e) => setInstructions(e.target.value)}
+                    className="input text-neutral input-bordered"
+                    type="text"
+                  />
+
+                  <RecButt onClick={handleRecipe} text="Add"></RecButt>
+                </form>
               </div>
             </div>
           </div>

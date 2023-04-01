@@ -8,9 +8,12 @@ import { getServerSession } from "next-auth/next";
 import { authOptions } from "./api/auth/[...nextauth]";
 import RecButt from '@/components/button';
 import { useSession, signIn, signOut } from "next-auth/react";
+import { useRouter } from 'next/router';
 
 
 export default function Login({recipes,session}) {
+
+  const router = useRouter()
 
   return (
     <>
@@ -30,7 +33,13 @@ export default function Login({recipes,session}) {
           <p className='text-neutral animate-fade-in ease-in-out mb-4 delay-1000'>
             A place to store and find new recipes 
           </p>
-          <RecButt text='Sign In' onClick={() => signIn()}/>
+        <div className='flex'>
+        <RecButt text='Sign In' onClick={() => signIn()}/>
+          <RecButt text='Home' onClick={()=>router.push("/home")}/>
+
+        </div>
+          
+         
         </div>
       </main>
     </>

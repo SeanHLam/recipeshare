@@ -15,12 +15,7 @@ export const authOptions = {
  
     // ...add more providers here
   ],
-  // callbacks: {
-  //   async signIn(user, account, profile) {
-  //     return '/home';
-  //   },
-  
-  // },
+
 
 }
 
