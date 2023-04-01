@@ -12,12 +12,15 @@ export const authOptions = {
       clientId: process.env.GITHUB_ID,
       clientSecret: process.env.GITHUB_SECRET,
     }),
-    GoogleProvider({
-        clientId: process.env.GOOGLE_CLIENT_ID,
-        clientSecret: process.env.GOOGLE_CLIENT_SECRET
-      })
+ 
     // ...add more providers here
   ],
+  callbacks: {
+    async signIn(user, account, profile) {
+      return '/home';
+    }
+  },
+
 }
 
 export default NextAuth(authOptions)
