@@ -70,8 +70,9 @@ export default function Card({
                 <h1 className="text-xl font-bold text-neutral">Steps</h1>
                 <p className="text-neutral m-1">{steps}</p>
                 <h1 className="text-xl font-bold text-neutral">Comments</h1>
-                <p className="text-neutral m-1">{comments}</p>
+                
                 </div>
+                <p className="text-neutral m-1">{comments}</p>
                 </div>
         </div>
       </div>
