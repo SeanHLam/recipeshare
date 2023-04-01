@@ -43,7 +43,7 @@ export default function Card({
           showPopup ? "h-screen" : "h-0"
         }   sm:p-0 fixed overflow-auto bottom-0 left-0 w-screen  bg-base-100  z-50  transition-all ease-in-out duration-1000`}
       >
-        <div className=" relative flex flex-col items-center h-full mx-auto  lg:w-6/12  ">
+        <div className="p-4  relative flex flex-col items-center h-full mx-auto  lg:w-6/12  ">
           <button onClick={handlePopup} className="flex justify-end mr-4 mb-8 w-full pt-4 ">
             <svg
               className="h-6 w-6 text-neutral hover:text-primary transition ease-in-out duration-150"
@@ -70,7 +70,15 @@ export default function Card({
                 <h1 className="text-xl font-bold text-neutral">Steps</h1>
                 <p className="text-neutral m-1">{steps}</p>
                 <h1 className="text-xl font-bold text-neutral">Comments</h1>
-                <p className="text-neutral m-1">{comments}</p>
+                {
+                    comments.map((comment) => {
+                        return (
+                            <p className="text-neutral m-1">{comment.comment}</p>
+                        )
+                    }
+                    )
+                }
+               
                 </div>
                 </div>
         </div>

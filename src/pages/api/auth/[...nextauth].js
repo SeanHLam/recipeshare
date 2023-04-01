@@ -15,12 +15,8 @@ export const authOptions = {
  
     // ...add more providers here
   ],
-  callbacks: {
-    async signIn(user, account, profile) {
-      return '/home';
-    },
-  
-  },
+  // A database is optional, but required to persist accounts in a database
+
 
 }
 
